@@ -18,7 +18,14 @@ const productsPrisma = new ProductsPrismaClient();
 // Employees API Routes
 app.get("/api/employees", async (req, res) => {
   try {
-    const employees = await employeesPrisma.employee.findMany();
+    const employees = await employeesPrisma.employee.findMany({
+      select: {
+        name: true,
+        email: true,
+        position: true,
+        salry: true,
+      },
+    });
     res.json(employees);
   } catch (error) {
     res.status(500).json({ error: "Error fetching employees" });
@@ -45,7 +52,14 @@ app.post("/api/employees", async (req, res) => {
 // Products API Routes
 app.get("/api/products", async (req, res) => {
   try {
-    const products = await productsPrisma.product.findMany();
+    const products = await productsPrisma.product.findMany({
+      select: {
+        name: true,
+        description: true,
+        price: true,
+        stock: true,
+      },
+    });
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: "Error fetching products" });
