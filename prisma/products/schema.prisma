@@ -1,0 +1,35 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../node_modules/@prisma-products/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("PRODUCTS_DATABASE_URL")
+  
+}
+
+
+// Employees Database Models
+model Employee {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  position  String
+  salary    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Products Database Models
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  stock       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
